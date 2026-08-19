@@ -1,0 +1,205 @@
+\documentclass[a4paper,10pt]{article}
+
+%-------------------------------------------------------------------------------
+% PACKAGES & SETUP
+%-------------------------------------------------------------------------------
+\usepackage[top=0.45in, bottom=0.45in, left=0.55in, right=0.55in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{fontawesome5}
+\usepackage{tabularx}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+% Color Definitions (Modern Professional Slate & Accent Blue)
+\definecolor{primary}{RGB}{15, 23, 42}       % Deep Navy / Slate
+\definecolor{accent}{RGB}{2, 132, 199}       % Modern Sky Blue
+\definecolor{textdark}{RGB}{30, 41, 59}      % Body Dark Text
+\definecolor{textgray}{RGB}{100, 116, 139}   % Muted Subtext
+\definecolor{linegray}{RGB}{203, 213, 225}   % Section Rule Line
+
+% Hyperlink Setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=accent,
+    urlcolor=accent,
+    pdfauthor={Mohammed Skikri},
+    pdftitle={CV - Mohammed Skikri}
+}
+
+% Set font encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Section Header Format
+\titleformat{\section}
+  {\fontfamily{phv}\selectfont\normalsize\bfseries\color{primary}\uppercase}
+  {}{0em}
+  {}
+  [\color{linegray}\titlerule\vspace{-5pt}]
+
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+
+% Bullet List Customization
+\setlist[itemize]{leftmargin=1.1em, noitemsep, topsep=1pt, parsep=1pt}
+
+\pagestyle{empty}
+
+%-------------------------------------------------------------------------------
+% MACROS
+%-------------------------------------------------------------------------------
+\newcommand{\experienceHeader}[4]{
+  \noindent
+  \begin{tabularx}{\textwidth}{@{}X r@{}}
+    \textbf{\color{primary} #1} & \textbf{\color{textdark}\small #2} \\
+    \textit{\small\color{textgray} #3} & \textit{\small\color{textgray} #4} \\
+  \end{tabularx}
+  \vspace{-3pt}
+}
+
+\newcommand{\educationHeader}[4]{
+  \noindent
+  \begin{tabularx}{\textwidth}{@{}X r@{}}
+    \textbf{\color{primary} #1} & \textbf{\color{textdark}\small #2} \\
+    \textit{\small\color{textgray} #3} & \textit{\small\color{textgray} #4} \\
+  \end{tabularx}
+  \vspace{-3pt}
+}
+
+%-------------------------------------------------------------------------------
+% DOCUMENT CONTENT
+%-------------------------------------------------------------------------------
+\begin{document}
+\color{textdark}
+
+%===============================================================================
+% HEADER / CONTACT INFORMATION + PROFILE PICTURE SLOT
+%===============================================================================
+\noindent
+\begin{minipage}[c]{0.76\textwidth}
+    {\Huge \fontfamily{phv}\selectfont \textbf{\color{primary} MOHAMMED SKIKRI}} \\[3pt]
+    {\large \color{accent} \textbf{Full-Stack Developer \ \textperiodcentered \ Software Engineering Student}} \\[5pt]
+    \small\color{textgray}
+    \faMapMarkerAlt \ Meknes, Morocco \quad \textperiodcentered \quad
+    \faEnvelope \ \href{mailto:contact@skikri.dev}{contact@skikri.dev} \\[2pt]
+    \faGithub \ \href{https://github.com/Skikri-mohammed}{github.com/Skikri-mohammed} \quad \textperiodcentered \quad
+    \faLinkedin \ \href{https://www.linkedin.com/in/mohamed-skikri-467862299/}{linkedin.com/in/mohamed-skikri}
+\end{minipage}%
+\begin{minipage}[c]{0.24\textwidth}
+    \centering
+    % If profile.jpg exists, it renders the photo. Otherwise, it shows a neat box placeholder.
+    \IfFileExists{profile.jpg}{%
+        \includegraphics[width=2.7cm, height=3.2cm, keepaspectratio]{profile.jpg}%
+    }{%
+        \setlength{\fboxsep}{0pt}%
+        \colorbox{linegray!30}{\framebox(75,90){%
+            \begin{minipage}[c][90pt][c]{75pt}
+                \centering \color{textgray}\small
+                \faUser\\[4pt]
+                Profile\\[2pt]
+                Photo
+            \end{minipage}%
+        }}%
+    }
+\end{minipage}
+
+\vspace{2pt}
+
+%===============================================================================
+% PROFESSIONAL SUMMARY
+%===============================================================================
+\section{Professional Summary}
+Full-Stack Developer and Software Engineering student with 3+ years of practical experience building web applications and scalable backend architectures. Proficient in JavaScript/TypeScript (React.js, Node.js, Express) and PHP (Laravel), with solid foundations in SQL/NoSQL databases, REST APIs, and RBAC authentication.
+
+%===============================================================================
+% TECHNICAL SKILLS
+%===============================================================================
+\section{Technical Skills}
+\begin{description}[font=\normalfont\bfseries\color{primary}, leftmargin=0pt, style=nextline, labelsep=0pt]
+    \item[Languages:] JavaScript (ES6+), TypeScript, PHP, Python, Java, SQL, HTML5, CSS3
+    \item[Frameworks \& Libraries:] React.js, Laravel, Express.js, Node.js, Tailwind CSS, Bootstrap, GSAP
+    \item[Databases \& Cloud:] MongoDB, MySQL, Oracle Database, Mongoose, Cloudinary
+    \item[Tools \& Practices:] Git, GitHub, REST APIs, JWT, Multer, Vite, UML Modeling, RBAC
+\end{description}
+
+%===============================================================================
+% WORK & PROJECT EXPERIENCE (MINIMIZED & CONCISE)
+%===============================================================================
+\section{Experience \& Key Projects}
+
+\experienceHeader{Full-Stack Developer --- Car Rental Management System}{2025 -- Present}{Sup'Management}{Meknes, Morocco}
+\begin{itemize}
+    \item Developed full-stack booking system with real-time vehicle availability filtering, RBAC authentication, JWT, and Cloudinary media pipelines.
+    \item \textbf{Tech Stack:} Node.js, Express.js, MongoDB, React.js, Tailwind CSS, JWT, Cloudinary.
+\end{itemize}
+
+\vspace{3pt}
+
+\experienceHeader{Frontend Specialist --- MIZAN Luxury Watch E-Commerce}{Feb 2025 -- Present}{Independent Project}{Full-Stack}
+\begin{itemize}
+    \item Built luxury dark glassmorphism store with instant catalog search, dynamic category filtering, slide-over cart drawer, and checkout workflow.
+    \item \textbf{Tech Stack:} React.js, Node.js, Express.js, MySQL, Multer, Tailwind CSS.
+\end{itemize}
+
+\vspace{3pt}
+
+\experienceHeader{Laravel Developer --- Market Bio Inventory \& E-Commerce}{2024 -- 2025}{Enterprise Solution}{Morocco}
+\begin{itemize}
+    \item Engineered bio-compound e-commerce platform with Arabic-primary UI, real-time sales tracking, and inventory control dashboard.
+    \item \textbf{Tech Stack:} Laravel, PHP, MySQL, Bootstrap, Tailwind CSS.
+\end{itemize}
+
+\vspace{3pt}
+
+\experienceHeader{Web Development Intern --- Enterprise Marketplace Platform}{2024}{OFPPT Marketplace}{Meknes, Morocco}
+\begin{itemize}
+    \item Implemented RBAC user authentication pipelines, product catalog CRUD operations, shopping cart, and central admin metrics panel.
+    \item \textbf{Tech Stack:} Laravel, PHP, MySQL, Blade, Tailwind CSS, UML.
+\end{itemize}
+
+%===============================================================================
+% EDUCATION
+%===============================================================================
+\section{Education}
+
+\educationHeader{Licence Professionnelle en Génie Informatique}{2025 -- Present}{Sup'Management}{Meknes, Morocco}
+\begin{itemize}
+    \item Specialization in Software Engineering Architecture, Oracle Database Management, and Enterprise Java Applications.
+\end{itemize}
+
+\vspace{2pt}
+
+\educationHeader{Technicien Spécialisé en Développement Informatique}{2023 -- 2025}{OFPPT}{Morocco}
+\begin{itemize}
+    \item Coursework in full-stack web development, Python programming, database administration, and software modeling.
+\end{itemize}
+
+\vspace{2pt}
+
+\educationHeader{Baccalauréat en Sciences Expérimentales (Série SVT)}{2022 -- 2023}{Lycée Qualifiant Abderrahim Bouabid}{Morocco}
+
+%===============================================================================
+% LANGUAGES & CERTIFICATIONS
+%===============================================================================
+\begin{minipage}[t]{0.48\textwidth}
+    \section{Languages}
+    \begin{itemize}[label=\small\color{accent}\faLanguage]
+        \item \textbf{Arabic:} Native
+        \item \textbf{English:} Intermediate (B1)
+        \item \textbf{French:} Intermediate (B1)
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \section{Certifications}
+    \begin{itemize}
+        \item \textbf{Advanced React} --- Coursera
+        \item \textbf{Database Structures \& MySQL} --- Coursera
+        \item \textbf{Excel Skills for Business} --- Coursera
+    \end{itemize}
+\end{minipage}
+
+\end{document}
