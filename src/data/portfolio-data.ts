@@ -93,7 +93,7 @@ export const PROJECTS: ProjectItem[] = [
     ],
     techTags: ['React.js', 'TypeScript', 'GSAP', 'HTML5', 'CSS3'],
     isPrivate: false,
-    link: 'https://github.com/Skikri-mohammed/my-portfolio',
+    link: 'https://github.com/Skikri01/Portfolio',
     icon: 'code',
     gradient: 'linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(139, 92, 246, 0.25), rgba(59, 130, 246, 0.2))',
     imageUrl: portfolioImage
