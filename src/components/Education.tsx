@@ -91,7 +91,7 @@ const certificatesData: CertificateItem[] = [
     title: "Advanced React",
     issuer: "Coursera",
     date: "",
-    url: "#"
+    url: "https://www.coursera.org/account/accomplishments/verify/8K40I4T8ZQ5U"
   },
   {
     title: "Excel Skills for Business: Essentials",
@@ -103,7 +103,13 @@ const certificatesData: CertificateItem[] = [
     title: "Database Structures and Management with MySQL",
     issuer: "Coursera",
     date: "",
-    url: "#"
+    url: "https://www.coursera.org/account/accomplishments/verify/88C9AFUWAASQ"
+  },
+  {
+    title: "Essentials of Prompt Engineering",
+    issuer: "Amazon Web Services (AWS)",
+    date: "Jul 2026",
+    url: "https://skillbuilder.aws/learn/XBNAVKA88J/essentials-of-prompt-engineering/9T9Q45EDTV"
   }
 ];
 
