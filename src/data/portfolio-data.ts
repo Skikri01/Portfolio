@@ -3,6 +3,7 @@ import mizanWatchImage from '../assets/images/mizan.jpg';
 import marketBioImage from '../assets/images/marketBio.png';
 import portfolioImage from '../assets/images/portfolio.png';
 import ecomerceImage from '../assets/images/ecomerce.png';
+import choufFlix from '../assets/images/chofFlix.png';
 
 export interface ProjectItem {
   id: string;
@@ -21,6 +22,26 @@ export interface ProjectItem {
 }
 
 export const PROJECTS: ProjectItem[] = [
+  {
+    id: 'chouflix',
+    title: 'ChoufFlix — Movie Streaming & Discovery Web Platform',
+    company: 'INDEPENDENT PROJECT · FULL-STACK',
+    date: '2025 – PRESENT',
+    badge: 'REACT',
+    desc: 'A modern, responsive web application for discovering trending movies, exploring detailed film analytics, watching official trailers, and managing personal watchlists.',
+    highlights: [
+      'Integrated the TMDB API with a dual-layer fetch architecture and mock dataset fallback for reliable movie discovery.',
+      'Built a marquee and dark-theme design system with responsive grid layouts and custom typography.',
+      'Implemented watchlist persistence with Context API and LocalStorage, interactive toast feedback, and offline-friendly state.',
+      'Added embedded HD YouTube trailer modals, cast details, recommendations, and multi-filter search with genre and rating selectors.'
+    ],
+    techTags: ['React.js', 'TypeScript', 'Vite', 'React Router', 'REST APIs', 'Lucide Icons', 'LocalStorage'],
+    isPrivate: false,
+    link: 'https://github.com/Skikri01/movie-explorer',
+    icon: 'film',
+    imageUrl: choufFlix,
+    gradient: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(127, 29, 29, 0.7), rgba(217, 164, 65, 0.25))'
+  },
   {
     id: 'car-rental',
     title: 'Car Rental Management System',

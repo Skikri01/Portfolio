@@ -84,6 +84,8 @@ export const ProjectsShowcase: React.FC = () => {
         return 'bx bx-code-alt';
       case 'briefcase':
         return 'bx bx-briefcase';
+      case 'film':
+        return 'bx bx-movie-play';
       default:
         return 'bx bx-atom';
     }
