@@ -507,7 +507,7 @@ const Contact: React.FC = () => {
                   Email
                 </p>
                 <p className="contact-info-value">
-                  <a href="mailto:contact@skikri.dev">mohamedskikri44@gmail.com</a>
+                  <a href="mailto:mohamedskikri44@gmail.com">mohamedskikri44@gmail.com</a>
                 </p>
               </div>
 
