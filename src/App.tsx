@@ -8,6 +8,7 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Chatbot from './components/Chatbot/Chatbot';
 
 const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
         <Skills />
         <Contact />
         <Footer />
+        <Chatbot />
       </div>
     </ThemeProvider>
   );
