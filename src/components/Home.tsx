@@ -46,7 +46,7 @@ const SOCIALS = [
   },
   {
     label: 'Email',
-    href: 'mailto:contact@skikri.dev',
+    href: 'mailto:mohamedskikri44@gmail.com',
     path: 'M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.13L4.6 6.5h14.8L12 12.13zM4 8.24V17h16V8.24l-8 6.1-8-6.1z',
   },
 ];
