@@ -4,6 +4,7 @@ import marketBioImage from '../assets/images/marketBio.png';
 import portfolioImage from '../assets/images/portfolio.png';
 import ecomerceImage from '../assets/images/ecomerce.png';
 import choufFlix from '../assets/images/chofFlix.png';
+import financeFlowImage from '../assets/images/financeFlow.png';
 
 export interface ProjectItem {
   id: string;
@@ -22,6 +23,27 @@ export interface ProjectItem {
 }
 
 export const PROJECTS: ProjectItem[] = [
+  {
+    id: 'finance-flow',
+    title: 'FinanceFlow — Full-Stack SaaS Financial Management Platform',
+    company: 'SAAS PLATFORM · FULL-STACK',
+    date: '2025 – PRESENT',
+    badge: 'FINTECH SAAS',
+    desc: 'Architected and developed a full-stack, enterprise-grade Finance Management SaaS application designed for multi-account wealth tracking, real-time cash flow analytics, and ledger management.',
+    highlights: [
+      'Interactive Analytics Dashboard: Built with React 18 & TypeScript featuring financial health summaries, monthly net worth telemetry, and category-level spending distribution.',
+      'Real-time Ledger & Account Management: Developed responsive transaction tracking, instant account syncing (Checking, Savings, Credit, Investments), and quick-transfer capabilities.',
+      'Robust RESTful Backend: Engineered a modular Express & TypeScript REST API with centralized error handling, CORS security, and environment-driven configuration.',
+      'Relational Data Modeling: Designed PostgreSQL schemas and migration pipelines using Prisma ORM with strict type-safety across relational entities (Users, Accounts, Transactions).',
+      'Enterprise Monorepo Architecture: Structured as an npm workspace monorepo separating client and server codebases for streamlined builds and developer workflow.'
+    ],
+    techTags: ['React 18', 'TypeScript', 'Node.js', 'Express.js', 'PostgreSQL', 'Prisma ORM', 'Tailwind CSS', 'Vite'],
+    isPrivate: false,
+    link: 'https://github.com/Skikri01/FinanceFlow',
+    icon: 'wallet',
+    imageUrl: financeFlowImage,
+    gradient: 'linear-gradient(135deg, rgba(14, 165, 233, 0.25), rgba(99, 102, 241, 0.35), rgba(168, 85, 247, 0.2))'
+  },
   {
     id: 'chouflix',
     title: 'ChoufFlix — Movie Streaming & Discovery Web Platform',
@@ -168,7 +190,7 @@ export const SKILLS: SkillCategory[] = [
     name: 'Databases & Storage',
     icon: '💾',
     description: 'Relational databases, document stores, and cloud media management pipelines.',
-    items: ['MongoDB', 'MySQL', 'Oracle Database', 'Mongoose', 'Cloudinary']
+    items: ['PostgreSQL', 'Prisma ORM', 'MongoDB', 'MySQL', 'Oracle Database', 'Mongoose', 'Cloudinary']
   },
   {
     id: 'devops',

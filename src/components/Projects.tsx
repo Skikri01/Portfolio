@@ -86,6 +86,10 @@ export const ProjectsShowcase: React.FC = () => {
         return 'bx bx-briefcase';
       case 'film':
         return 'bx bx-movie-play';
+      case 'wallet':
+        return 'bx bx-wallet';
+      case 'chart':
+        return 'bx bx-line-chart';
       default:
         return 'bx bx-atom';
     }

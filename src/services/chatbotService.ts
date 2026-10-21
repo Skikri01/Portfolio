@@ -67,7 +67,7 @@ export const MOHAMMED_CONTEXT = {
   email: 'mohamedskikri44@gmail.com',
   linkedin: 'https://www.linkedin.com/in/mohamed-skikri-467862299/',
   github: 'https://github.com/Skikri01',
-  cvUrl: '/Mohammed_Skikri_CV.pdf',
+  cvUrl: `${import.meta.env.BASE_URL}Mohammed_Skikri_CV.pdf`,
   bio: `Mohammed Skikri is a passionate Full-Stack Developer and Software Engineering student currently pursuing a Licence Professionnelle en Génie Informatique at Sup'Management in Meknes, Morocco. He specializes in designing modern, scalable web applications with React.js, TypeScript, Node.js, Express, MongoDB, and Laravel/PHP.`,
   education: [
     {
@@ -128,6 +128,13 @@ export const MOHAMMED_CONTEXT = {
     { language: 'English', level: 'Professional Working Proficiency' }
   ],
   projects: [
+    {
+      name: 'FinanceFlow',
+      category: 'Full-Stack SaaS Financial Management Platform',
+      tech: 'React 18, TypeScript, Node.js, Express.js, PostgreSQL, Prisma ORM, Tailwind CSS, Vite',
+      highlights: 'Architected enterprise-grade financial SaaS with interactive wealth tracking analytics ($546k+ telemetry), multi-account ledger syncing, Prisma PostgreSQL schemas, modular Express REST backend, and npm workspaces monorepo.',
+      github: 'https://github.com/Skikri01/FinanceFlow'
+    },
     {
       name: 'ChoufFlix',
       category: 'Movie Streaming & Discovery Platform',
@@ -289,8 +296,9 @@ export const generateLocalResponse = (query: string): { text: string; actions?: 
   // 5. SPECIFIC TECH: REACT & FRONTEND
   if (tokens.includes('react') || tokens.includes('reactjs') || norm.includes('frontend') || norm.includes('front end')) {
     return {
-      text: `Mohammed is highly proficient with **React.js & Modern Frontend Development**:\n\n• **Core Stack**: React 18, TypeScript, Vite, React Router, Context API, Custom Hooks\n• **Styling & Motion**: Tailwind CSS, CSS3 Glassmorphism, Framer Motion, GSAP animations\n• **Featured React Projects**:\n  - 🎬 **ChoufFlix**: Streaming platform with TMDB API & trailer integration\n  - ⌚ **MIZAN Store**: Luxury e-commerce with real-time cart and glassmorphism\n  - 🚗 **Car Rental Dashboard**: Real-time vehicle booking management\n  - ✨ **This Interactive Portfolio**: High-performance animations and custom theme system`,
+      text: `Mohammed is highly proficient with **React.js & Modern Frontend Development**:\n\n• **Core Stack**: React 18, TypeScript, Vite, React Router, Context API, Custom Hooks\n• **Styling & Motion**: Tailwind CSS, CSS3 Glassmorphism, Framer Motion, GSAP animations\n• **Featured React Projects**:\n  - 💳 **FinanceFlow**: Enterprise financial management SaaS with telemetry & Prisma PostgreSQL\n  - 🎬 **ChoufFlix**: Streaming platform with TMDB API & trailer integration\n  - ⌚ **MIZAN Store**: Luxury e-commerce with real-time cart and glassmorphism\n  - 🚗 **Car Rental Dashboard**: Real-time vehicle booking management\n  - ✨ **This Interactive Portfolio**: High-performance animations and custom theme system`,
       actions: [
+        { label: '💳 FinanceFlow Info', query: 'Tell me about FinanceFlow' },
         { label: '🎬 ChoufFlix Code', url: 'https://github.com/Skikri01/movie-explorer', icon: 'bxl-github' },
         { label: '⚡ All Skills', query: 'What are all your skills?', scrollToId: 'skills' },
         { label: '📄 Download CV', query: 'Can I download your CV?' }
@@ -299,10 +307,11 @@ export const generateLocalResponse = (query: string): { text: string; actions?: 
   }
 
   // 6. SPECIFIC TECH: NODE / EXPRESS / BACKEND / REST APIS
-  if (tokens.includes('node') || tokens.includes('nodejs') || tokens.includes('express') || norm.includes('backend') || tokens.includes('api') || tokens.includes('jwt')) {
+  if (tokens.includes('node') || tokens.includes('nodejs') || tokens.includes('express') || norm.includes('backend') || tokens.includes('api') || tokens.includes('jwt') || tokens.includes('prisma') || tokens.includes('postgres') || tokens.includes('postgresql')) {
     return {
-      text: `Mohammed builds scalable backend architectures with **Node.js & Express.js**:\n\n• **Architecture**: RESTful API design, MVC architecture, middleware pipelines\n• **Security & Auth**: JWT (JSON Web Tokens), bcrypt hashing, Role-Based Access Control (RBAC)\n• **Data Management**: MongoDB (Mongoose), MySQL relational models, Multer & Cloudinary media pipelines\n• **Production Implementations**: Car Rental Management System & MIZAN Luxury Watch Store`,
+      text: `Mohammed builds scalable backend architectures with **Node.js, Express.js & Prisma ORM**:\n\n• **Architecture**: Modular RESTful APIs, Clean Architecture, Monorepos, middleware pipelines\n• **Databases**: PostgreSQL with Prisma ORM, MongoDB (Mongoose), MySQL relational models\n• **Security & Auth**: JWT (JSON Web Tokens), bcrypt hashing, CORS security, Role-Based Access Control (RBAC)\n• **Production Implementations**: FinanceFlow SaaS, Car Rental Management System & MIZAN Luxury Watch Store`,
       actions: [
+        { label: '💳 FinanceFlow Repo', url: 'https://github.com/Skikri01/FinanceFlow', icon: 'bxl-github' },
         { label: '🚗 Car Rental Repo', url: 'https://github.com/Skikri-mohammed/Car-Rental-management-system-Full-stack', icon: 'bxl-github' },
         { label: '⌚ Mizan Store Repo', url: 'https://github.com/Skikri-mohammed/Mizan-Luxury-Watch-Store-Full-Stack', icon: 'bxl-github' }
       ]
@@ -389,11 +398,11 @@ export const generateLocalResponse = (query: string): { text: string; actions?: 
     norm.includes('مشاريع')
   ) {
     return {
-      text: `Mohammed has built several prominent full-stack applications:\n\n1. 🎬 **ChoufFlix**: Movie streaming & discovery platform *(React, TypeScript, TMDB API)*\n2. 🚗 **Car Rental System**: Vehicle booking with fleet management *(Node.js, Express, MongoDB, React)*\n3. ⌚ **MIZAN**: Luxury watch e-commerce *(React, Node.js, Express, MySQL)*\n4. 🌿 **Market Bio**: Bilingual inventory & e-commerce platform *(Laravel, PHP, MySQL)*\n5. ✨ **Interactive Portfolio**: Glassmorphic animated developer showcase *(React, TypeScript, GSAP)*\n\nClick below to inspect any project or jump to the Projects section:`,
+      text: `Mohammed has built several prominent full-stack applications:\n\n1. 💳 **FinanceFlow**: Enterprise financial management SaaS *(React 18, TypeScript, Express, Prisma, PostgreSQL)*\n2. 🎬 **ChoufFlix**: Movie streaming & discovery platform *(React, TypeScript, TMDB API)*\n3. 🚗 **Car Rental System**: Vehicle booking with fleet management *(Node.js, Express, MongoDB, React)*\n4. ⌚ **MIZAN**: Luxury watch e-commerce *(React, Node.js, Express, MySQL)*\n5. 🌿 **Market Bio**: Bilingual inventory & e-commerce platform *(Laravel, PHP, MySQL)*\n6. ✨ **Interactive Portfolio**: Glassmorphic animated developer showcase *(React, TypeScript, GSAP)*\n\nClick below to inspect any project or jump to the Projects section:`,
       actions: [
+        { label: '💳 FinanceFlow', query: 'Tell me about FinanceFlow' },
         { label: '🎬 ChoufFlix', query: 'Tell me about ChoufFlix' },
         { label: '🚗 Car Rental', query: 'Tell me about Car Rental system' },
-        { label: '⌚ MIZAN Store', query: 'Tell me about Mizan luxury store' },
         { label: '⬇️ Scroll to Projects', scrollToId: 'projects', icon: 'bx-down-arrow-alt' },
         { label: '🐙 GitHub Profile', url: MOHAMMED_CONTEXT.github, icon: 'bxl-github' }
       ]

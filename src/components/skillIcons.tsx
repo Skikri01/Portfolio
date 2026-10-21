@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 
 /**
  * Skill icon set — every icon is drawn on the same 24×24 grid so the orbit

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import solaImage from '../assets/sola.jpg';
+import CvModal from './CvModal';
+import Hero3DPortrait from './Hero3DPortrait';
 
 const ROLES = ['Full Stack Developer', 'Digital Solutions Technician', 'Software Engineering Student'];
 
@@ -57,7 +58,122 @@ const Home: React.FC = () => {
   const [isIntroActive, setIsIntroActive] = useState(true);
   const [isIntroExiting, setIsIntroExiting] = useState(false);
   const [heroGreetingIdx, setHeroGreetingIdx] = useState(0);
-  const plateRef = useRef<HTMLDivElement>(null);
+  const [isCvPreviewOpen, setIsCvPreviewOpen] = useState(false);
+  const cvButtonRef = useRef<HTMLButtonElement>(null);
+  const cvCardRef = useRef<HTMLDivElement>(null);
+  const cvTimerRef = useRef<number | null>(null);
+
+  const clearCvTimer = () => {
+    if (cvTimerRef.current) {
+      clearTimeout(cvTimerRef.current);
+      cvTimerRef.current = null;
+    }
+  };
+
+  const openCv = () => {
+    clearCvTimer();
+    setIsCvPreviewOpen(true);
+  };
+
+  const scheduleCloseCv = (delay = 280) => {
+    clearCvTimer();
+    cvTimerRef.current = window.setTimeout(() => {
+      setIsCvPreviewOpen(false);
+    }, delay);
+  };
+
+  const handleButtonMouseLeave = (e: React.MouseEvent) => {
+    const btn = cvButtonRef.current;
+    if (btn) {
+      const rect = btn.getBoundingClientRect();
+      const isStillInside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+      if (isStillInside) return;
+    }
+    scheduleCloseCv(350);
+  };
+
+  // Continuous pointer tracker to ensure smooth transitions without flickering
+  useEffect(() => {
+    if (!isCvPreviewOpen) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const btn = cvButtonRef.current;
+      const card = cvCardRef.current;
+
+      const isInside = (el: HTMLElement | null) => {
+        if (!el) return false;
+        const rect = el.getBoundingClientRect();
+        return (
+          e.clientX >= rect.left &&
+          e.clientX <= rect.right &&
+          e.clientY >= rect.top &&
+          e.clientY <= rect.bottom
+        );
+      };
+
+      const overBtn = isInside(btn);
+      const overCard = isInside(card);
+
+      if (overBtn || overCard) {
+        clearCvTimer();
+      } else if (!cvTimerRef.current) {
+        scheduleCloseCv(280);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [isCvPreviewOpen]);
+
+  const handleDownloadCV = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const cvUrl = `${import.meta.env.BASE_URL}Mohammed_Skikri_CV.pdf`;
+
+    try {
+      const response = await fetch(cvUrl);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const blob = await response.blob();
+      if (!blob || blob.size === 0) throw new Error('Received empty blob');
+
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.setAttribute('download', 'Mohammed_Skikri_CV.pdf');
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+
+      // IMPORTANT: Delay DOM removal and URL revocation to allow Chromium (Chrome/Edge)
+      // to fully process the download stream without truncating it to a 0 KB empty file.
+      setTimeout(() => {
+        if (link.parentNode) {
+          document.body.removeChild(link);
+        }
+        window.URL.revokeObjectURL(blobUrl);
+      }, 2000);
+    } catch (err) {
+      console.warn('Blob download failed, using direct download link:', err);
+      // Fallback: direct browser navigation/download
+      const fallbackLink = document.createElement('a');
+      fallbackLink.href = cvUrl;
+      fallbackLink.setAttribute('download', 'Mohammed_Skikri_CV.pdf');
+      fallbackLink.target = '_blank';
+      fallbackLink.rel = 'noopener noreferrer';
+      document.body.appendChild(fallbackLink);
+      fallbackLink.click();
+      setTimeout(() => {
+        if (fallbackLink.parentNode) {
+          document.body.removeChild(fallbackLink);
+        }
+      }, 1000);
+    }
+  };
 
   // Preloader step sequence
   useEffect(() => {
@@ -90,50 +206,11 @@ const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Pointer parallax on the portrait plate
-  const handlePlateMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const plate = plateRef.current;
-    if (!plate || e.pointerType === 'touch') return;
-    const rect = plate.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    plate.style.setProperty('--tilt-x', `${(-y * 6).toFixed(2)}deg`);
-    plate.style.setProperty('--tilt-y', `${(x * 8).toFixed(2)}deg`);
-    plate.style.setProperty('--shift-x', `${(x * 14).toFixed(2)}px`);
-    plate.style.setProperty('--shift-y', `${(y * 14).toFixed(2)}px`);
-  };
-
-  const resetPlate = () => {
-    const plate = plateRef.current;
-    if (!plate) return;
-    plate.style.setProperty('--tilt-x', '0deg');
-    plate.style.setProperty('--tilt-y', '0deg');
-    plate.style.setProperty('--shift-x', '0px');
-    plate.style.setProperty('--shift-y', '0px');
-  };
-
   const handleSkipIntro = () => {
     setIsIntroExiting(true);
     setTimeout(() => setIsIntroActive(false), 700);
   };
 
-  const handleDownloadCV = async () => {
-    try {
-      const response = await fetch('/Mohammed_Skikri_CV.pdf');
-      if (!response.ok) throw new Error('fetch failed');
-      const blob = await response.blob();
-      const url = URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Mohammed_Skikri_CV.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      setTimeout(() => URL.revokeObjectURL(url), 10000);
-    } catch {
-      window.open('/Mohammed_Skikri_CV.pdf', '_blank');
-    }
-  };
 
   const renderWord = (word: string, className: string, baseDelay: number) =>
     word.split('').map((char, i) => (
@@ -684,6 +761,7 @@ const Home: React.FC = () => {
           font-weight: 600;
           border: 1px solid var(--line-strong);
           cursor: pointer;
+          text-decoration: none;
           transition: border-color 0.3s ease, background 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
@@ -700,6 +778,7 @@ const Home: React.FC = () => {
         .btn-ghost:hover svg {
           transform: translateY(2px);
         }
+
 
         .hero-index {
           display: flex;
@@ -780,164 +859,10 @@ const Home: React.FC = () => {
           display: flex;
           justify-content: center;
           align-items: center;
-          padding: 40px 0;
+          padding: 30px 0;
           perspective: 1200px;
           opacity: 0;
           animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
-        }
-
-        .plate {
-          --tilt-x: 0deg;
-          --tilt-y: 0deg;
-          --shift-x: 0px;
-          --shift-y: 0px;
-
-          position: relative;
-          width: min(100%, 388px);
-          transform-style: preserve-3d;
-          transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
-          transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .plate-orbit {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 128%;
-          aspect-ratio: 1;
-          margin: -64% 0 0 -64%;
-          border-radius: 50%;
-          border: 1px dashed var(--line-strong);
-          opacity: 0.55;
-          pointer-events: none;
-          animation: plateSpin 46s linear infinite;
-        }
-
-        .plate-orbit::after {
-          content: '';
-          position: absolute;
-          top: -4px;
-          left: 50%;
-          width: 7px;
-          height: 7px;
-          margin-left: -3.5px;
-          border-radius: 50%;
-          background: var(--accent);
-          box-shadow: 0 0 14px var(--accent);
-        }
-
-        .plate-accent {
-          position: absolute;
-          inset: 26px -26px -26px 26px;
-          border-radius: 22px;
-          background: linear-gradient(158deg, var(--accent) 0%, rgba(184, 132, 47, 0.35) 70%, transparent 100%);
-          opacity: 0.85;
-          transform: translate3d(calc(var(--shift-x) * -0.4), calc(var(--shift-y) * -0.4), -40px);
-          transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .plate-frame {
-          position: relative;
-          width: 100%;
-          aspect-ratio: 3 / 4;
-          border-radius: 22px;
-          overflow: hidden;
-          border: 1px solid var(--line-strong);
-          background: var(--card-bg-solid);
-          box-shadow: 0 44px 100px -32px var(--shadow-color), 0 2px 0 rgba(255, 255, 255, 0.04) inset;
-          transform: translate3d(var(--shift-x), var(--shift-y), 30px);
-          transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
-        }
-
-        .plate:hover .plate-frame {
-          box-shadow: 0 52px 120px -30px var(--shadow-color), 0 2px 0 rgba(255, 255, 255, 0.06) inset;
-        }
-
-        .plate-frame img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center 16%;
-          display: block;
-          filter: grayscale(30%) contrast(1.08) saturate(1.06) brightness(1.02);
-          transform: scale(1.015);
-          transition: filter 0.6s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .plate:hover .plate-frame img {
-          filter: grayscale(0%) contrast(1.1) saturate(1.1) brightness(1.03);
-          transform: scale(1.065);
-        }
-
-        .plate-frame::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          background:
-            linear-gradient(180deg, transparent 42%, rgba(0, 0, 0, 0.58) 100%),
-            linear-gradient(200deg, var(--accent-soft) 0%, transparent 42%),
-            radial-gradient(120% 90% at 50% 100%, rgba(0, 0, 0, 0.12) 0%, transparent 60%);
-        }
-
-        .plate-mark {
-          position: absolute;
-          width: 26px;
-          height: 26px;
-          z-index: 4;
-          border: 1px solid var(--accent);
-          opacity: 0.9;
-        }
-
-        .plate-mark.tl { top: -13px; left: -13px; border-right: none; border-bottom: none; }
-        .plate-mark.tr { top: -13px; right: -13px; border-left: none; border-bottom: none; }
-        .plate-mark.bl { bottom: -13px; left: -13px; border-right: none; border-top: none; }
-        .plate-mark.br { bottom: -13px; right: -13px; border-left: none; border-top: none; }
-
-        .plate-caption {
-          position: absolute;
-          left: 18px;
-          right: 18px;
-          bottom: 16px;
-          z-index: 5;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          font-family: monospace;
-          font-size: 0.62rem;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: rgba(255, 255, 255, 0.82);
-        }
-
-        .plate-caption-rule {
-          flex: 1;
-          height: 1px;
-          background: rgba(255, 255, 255, 0.3);
-        }
-
-        .plate-badge {
-          position: absolute;
-          left: 50%;
-          bottom: -22px;
-          z-index: 6;
-          transform: translate3d(calc(-50% + var(--shift-x) * 1.4), calc(var(--shift-y) * 1.4), 60px);
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          padding: 11px 22px;
-          border-radius: 999px;
-          background: var(--pill-bg);
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
-          border: 1px solid var(--accent-glow);
-          color: var(--ink);
-          font-size: 0.8rem;
-          font-weight: 600;
-          white-space: nowrap;
-          box-shadow: 0 18px 36px -12px var(--shadow-color);
-          transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         /* ─── Footer Marquee ──────────────────────────────────── */
@@ -1107,8 +1032,6 @@ const Home: React.FC = () => {
           .hero-index,
           .hero-socials { justify-content: center; }
           .hero-index-cell:first-child { padding-left: 26px; }
-          .plate { width: min(100%, 300px); }
-          .plate-orbit { display: none; }
         }
 
         @media (max-width: 620px) {
@@ -1136,17 +1059,11 @@ const Home: React.FC = () => {
           }
 
           .hero-aura,
-          .plate-orbit,
           .ticker-track,
           .scroll-cue-track::after,
           .hero-meta-dot::after {
             animation: none;
           }
-
-          .plate,
-          .plate-frame,
-          .plate-accent,
-          .plate-badge { transition: none; }
         }
       `}</style>
 
@@ -1224,10 +1141,68 @@ const Home: React.FC = () => {
             </a>
 
             <button
+              ref={cvButtonRef}
               type="button"
+              onMouseEnter={openCv}
+              onMouseLeave={handleButtonMouseLeave}
+              onClick={() => setIsCvPreviewOpen((prev) => !prev)}
+              className="btn-ghost"
+              aria-label="View Mohammed Skikri's CV"
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <polyline
+                  points="14 2 14 8 20 8"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <line
+                  x1="16"
+                  y1="13"
+                  x2="8"
+                  y2="13"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <line
+                  x1="16"
+                  y1="17"
+                  x2="8"
+                  y2="17"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <polyline
+                  points="10 9 9 9 8 9"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              View CV
+            </button>
+
+            <a
+              href={`${import.meta.env.BASE_URL}Mohammed_Skikri_CV.pdf`}
+              download="Mohammed_Skikri_CV.pdf"
               onClick={handleDownloadCV}
               className="btn-ghost"
               aria-label="Download Mohammed Skikri's CV"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
                 <path
@@ -1239,7 +1214,7 @@ const Home: React.FC = () => {
                 />
               </svg>
               Download CV
-            </button>
+            </a>
           </div>
 
           <div className="hero-index">
@@ -1270,35 +1245,7 @@ const Home: React.FC = () => {
         </div>
 
         <div className="hero-plate-col">
-          <div
-            className="plate"
-            ref={plateRef}
-            onPointerMove={handlePlateMove}
-            onPointerLeave={resetPlate}
-          >
-            <span className="plate-orbit" aria-hidden="true" />
-            <span className="plate-accent" aria-hidden="true" />
-
-            <div className="plate-frame">
-              <img src={solaImage} alt="Mohammed Skikri" />
-
-              <div className="plate-caption">
-                <span>Plate I</span>
-                <span className="plate-caption-rule" aria-hidden="true" />
-                <span>M. Skikri</span>
-              </div>
-            </div>
-
-            <span className="plate-mark tl" aria-hidden="true" />
-            <span className="plate-mark tr" aria-hidden="true" />
-            <span className="plate-mark bl" aria-hidden="true" />
-            <span className="plate-mark br" aria-hidden="true" />
-
-            <span className="plate-badge">
-              <span className="hero-meta-dot" aria-hidden="true" />
-              Available for new positions
-            </span>
-          </div>
+          <Hero3DPortrait onOpenCv={openCv} />
         </div>
 
         <div className="hero-footer">
@@ -1322,6 +1269,17 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <CvModal
+        isOpen={isCvPreviewOpen}
+        onClose={() => {
+          clearCvTimer();
+          setIsCvPreviewOpen(false);
+        }}
+        cardRef={cvCardRef}
+        onCardMouseEnter={clearCvTimer}
+        onCardMouseLeave={() => scheduleCloseCv(280)}
+      />
     </>
   );
 };
