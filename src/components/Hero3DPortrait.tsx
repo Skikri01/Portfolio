@@ -418,10 +418,8 @@ export const Hero3DPortrait: React.FC<Hero3DPortraitProps> = ({ onOpenCv }) => {
 
         .p3d-subject-img {
           position: absolute;
-          bottom: 0;
-          left: 50%;
-          /* Calibrated horizontal center of Mohammed in sola.jpg (69.5%) */
-          transform: translateX(-69.5%);
+          top: 0;
+          right: 0;
           height: 104%;
           width: auto;
           max-width: none;
