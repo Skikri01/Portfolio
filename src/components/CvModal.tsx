@@ -102,6 +102,8 @@ export const CvModal: React.FC<CvModalProps> = ({
           color: var(--ink, #f3ede2);
           font-family: 'Inter', system-ui, -apple-system, sans-serif;
           overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+          touch-action: pan-y;
         }
 
         /* Custom Scrollbar */
@@ -330,12 +332,14 @@ export const CvModal: React.FC<CvModalProps> = ({
       <div
         ref={cardRef}
         className="cv-modal-card"
+        data-lenis-prevent
         onMouseEnter={onCardMouseEnter}
         onMouseLeave={onCardMouseLeave}
         onClick={(e) => e.stopPropagation()}
+        onWheel={(e) => e.stopPropagation()}
       >
         {/* CV Document (Pure CV, Absolutely No Buttons) */}
-        <div className="cv-modal-body">
+        <div className="cv-modal-body" data-lenis-prevent>
           <article className="cv-paper">
             {/* Header */}
             <header className="cv-paper-header">

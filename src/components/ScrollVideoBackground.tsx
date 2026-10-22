@@ -146,6 +146,15 @@ export default function ScrollVideoBackground() {
       smoothWheel:        true,
       wheelMultiplier:    0.9,
       touchMultiplier:    1.5,
+      prevent: (node) => {
+        // Prevent smooth scrolling when scrolling inside modals or elements with data-lenis-prevent
+        return (
+          node.hasAttribute('data-lenis-prevent') ||
+          Boolean(node.closest('[data-lenis-prevent]')) ||
+          Boolean(node.closest('.cv-modal-body')) ||
+          Boolean(node.closest('.cv-modal-card'))
+        );
+      },
     });
 
     // Sync Lenis RAF into GSAP ticker so ScrollTrigger scrub stays in phase
