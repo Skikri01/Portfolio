@@ -8,6 +8,8 @@
 :root {
   color-scheme: dark;
   --bg: #0a0a0d;
+  /* Section background: semi-transparent so the canvas shows through */
+  --bg-section: rgba(10, 10, 13, 0.55);
   --ink: #f3ede2;
   --muted: rgba(243, 237, 226, 0.72);
   --faint: rgba(243, 237, 226, 0.4);
@@ -20,13 +22,14 @@
   --line-strong: rgba(243, 237, 226, 0.28);
   --pill-bg: rgba(14, 14, 18, 0.85);
   --shadow-color: rgba(0, 0, 0, 0.5);
-  background-color: var(--bg);
   color: var(--ink);
 }
 
 :root[data-theme='light'] {
   color-scheme: light;
   --bg: #f7f6f3;
+  /* Section background: semi-transparent so the canvas shows through */
+  --bg-section: rgba(247, 246, 243, 0.60);
   --ink: #181715;
   --muted: rgba(24, 23, 21, 0.75);
   --faint: rgba(24, 23, 21, 0.48);
@@ -39,7 +42,6 @@
   --line-strong: rgba(24, 23, 21, 0.25);
   --pill-bg: rgba(255, 255, 255, 0.92);
   --shadow-color: rgba(0, 0, 0, 0.08);
-  background-color: var(--bg);
   color: var(--ink);
 }
 
@@ -53,17 +55,16 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-color: var(--bg);
+  background-color: transparent;
   color: var(--ink);
   overflow-x: hidden;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition: color 0.4s ease;
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
-  background-color: var(--bg);
-  transition: background-color 0.4s ease;
+  background-color: transparent;
 }
 
 /* Custom Sleek Scrollbar */

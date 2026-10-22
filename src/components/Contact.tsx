@@ -25,7 +25,7 @@ const Contact: React.FC = () => {
         .contact-section {
           position: relative;
           padding: 120px 7% 140px;
-          background: var(--bg);
+          background: var(--bg-section);
           color: var(--ink);
           overflow: hidden;
           transition: background 0.4s ease;

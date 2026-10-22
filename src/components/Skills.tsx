@@ -36,7 +36,7 @@ const styles = `
   display: flex;
   flex-direction: column;
   gap: 34px;
-  background: var(--bg);
+  background: var(--bg-section);
   color: var(--ink);
   box-sizing: border-box;
   transition: background 0.4s ease, color 0.4s ease;

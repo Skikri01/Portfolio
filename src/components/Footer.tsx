@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
       <style>{`
         .site-footer {
           position: relative;
-          background: var(--bg);
+          background: var(--bg-section);
           color: var(--ink);
           border-top: 1px solid var(--line);
           padding: 80px 7% 40px;

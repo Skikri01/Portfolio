@@ -102,7 +102,7 @@ export const ProjectsShowcase: React.FC = () => {
         .timeline-section {
           width: 100%;
           position: relative;
-          background: var(--bg);
+          background: var(--bg-section);
           color: var(--ink);
           padding: 120px 6vw;
           box-sizing: border-box;
@@ -263,7 +263,7 @@ export const ProjectsShowcase: React.FC = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: var(--bg);
+          background: var(--bg-section);
         }
 
         .banner-img {

@@ -207,7 +207,7 @@ const Education: React.FC = () => {
           position: relative;
           padding: 120px 7% 100px;
           box-sizing: border-box;
-          background: var(--bg);
+          background: var(--bg-section);
           color: var(--ink);
           transition: background 0.4s ease;
         }

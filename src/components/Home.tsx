@@ -433,7 +433,7 @@ const Home: React.FC = () => {
           position: relative;
           min-height: 100vh;
           width: 100%;
-          background: var(--bg);
+          background: transparent;
           padding: clamp(104px, 13vh, 132px) 6% 0 110px;
           box-sizing: border-box;
           display: grid;
@@ -857,9 +857,10 @@ const Home: React.FC = () => {
           position: relative;
           z-index: 3;
           display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 30px 0;
+          justify-content: flex-end;
+          align-items: flex-start;
+          align-self: start;
+          padding: 10px 0 30px;
           perspective: 1200px;
           opacity: 0;
           animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
@@ -1015,12 +1016,18 @@ const Home: React.FC = () => {
             grid-template-rows: auto auto auto;
             justify-items: center;
             text-align: center;
-            padding: 116px 6% 0 72px;
-            row-gap: 8px;
+            padding: 110px 5% 0 68px;
+            row-gap: 16px;
           }
 
           .hero-content { order: 2; padding-top: 8px; }
-          .hero-plate-col { order: 1; padding-bottom: 34px; }
+          .hero-plate-col {
+            order: 1;
+            padding-bottom: 24px;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+          }
           .hero-footer { order: 3; }
 
           .hero-greeting-badge { margin-inline: auto; }
@@ -1031,15 +1038,107 @@ const Home: React.FC = () => {
           .hero-cta,
           .hero-index,
           .hero-socials { justify-content: center; }
-          .hero-index-cell:first-child { padding-left: 26px; }
+          .hero-index-cell:first-child { padding-left: 20px; }
         }
 
-        @media (max-width: 620px) {
-          .hero { padding: 104px 5% 0 62px; }
-          .hero-index { flex-wrap: wrap; gap: 18px 0; }
-          .hero-index-cell { padding: 0 16px; }
-          .hero-footer { flex-direction: column; align-items: stretch; gap: 14px; }
-          .scroll-cue { justify-content: center; }
+        @media (max-width: 640px) {
+          .hero {
+            padding: 86px 16px 0 16px;
+          }
+          .hero-nameplate {
+            font-size: clamp(2rem, 9.5vw, 3.2rem);
+          }
+          .hero-content {
+            max-width: 100%;
+          }
+          .hero-plate-col {
+            padding: 10px 0 20px;
+            width: 100%;
+            justify-content: center;
+          }
+          .hero-role-rule {
+            width: 28px;
+          }
+          .role-item {
+            font-size: 0.78rem;
+          }
+          .hero-tagline {
+            font-size: 0.95rem;
+            line-height: 1.6;
+          }
+          .hero-cta {
+            flex-direction: column;
+            width: 100%;
+            gap: 12px;
+          }
+          .hero-cta .btn-primary,
+          .hero-cta .btn-ghost {
+            width: 100%;
+            justify-content: center;
+            padding: 13px 20px;
+          }
+          .hero-index {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 100%;
+            padding-top: 16px;
+          }
+          .hero-index-cell {
+            padding: 0 6px;
+            border-left: 1px solid var(--hero-rule);
+            align-items: center;
+            text-align: center;
+          }
+          .hero-index-cell:first-child {
+            padding-left: 0;
+            border-left: none;
+          }
+          .hero-index-val {
+            font-size: 1.25rem;
+          }
+          .hero-index-lbl {
+            font-size: 0.65rem;
+          }
+          .hero-footer {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 14px;
+          }
+          .scroll-cue {
+            justify-content: center;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .hero {
+            padding: 80px 12px 0 12px;
+          }
+          .hero-greeting-badge {
+            font-size: 0.78rem;
+            padding: 4px 10px;
+          }
+          .hero-meta {
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            gap: 6px;
+          }
+          .hero-tagline {
+            font-size: 0.9rem;
+            line-height: 1.55;
+          }
+          .hero-index {
+            grid-template-columns: 1fr;
+            gap: 10px;
+          }
+          .hero-index-cell {
+            border-left: none;
+            border-bottom: 1px solid var(--hero-rule);
+            padding: 0 0 8px 0;
+          }
+          .hero-index-cell:last-child {
+            border-bottom: none;
+          }
         }
 
         @media (prefers-reduced-motion: reduce) {

@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     port: 5173,
     watch: {
-      ignored: ['**/dist/**', '**/.git/**']
+      ignored: ['**/dist/**', '**/.git/**', '**/public/smothVedeo/**']
     }
   }
 })
