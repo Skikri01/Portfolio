@@ -24,7 +24,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ─── Frame metadata (confirmed by inspection) ────────────────────────────────
 const TOTAL_FRAMES = 300;
-const BASE_URL     = '/smothVedeo/';
+// Use Vite's BASE_URL so it resolves to './' or '/Portfolio/' on GitHub Pages and '/' locally
+const BASE_URL     = `${import.meta.env.BASE_URL}smothVedeo/`.replace(/\/+/g, '/');
 const PREFIX       = 'ezgif-frame-';
 const SUFFIX       = '.jpg';
 
